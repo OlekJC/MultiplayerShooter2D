@@ -8,7 +8,7 @@ Bullet::Bullet(sf::Vector2f vec)
 }
 
 void Bullet::draw(sf::RenderWindow& wnd) 
-{ 
+{
 	wnd.draw(bullet); 
 }
 
