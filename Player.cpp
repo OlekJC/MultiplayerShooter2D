@@ -3,9 +3,20 @@
 
 Player::Player(sf::Vector2f v)
 {
-	body.setSize(sf::Vector2f(50, 50));
-	//body.setOrigin(body.getSize().x / 2, body.getSize().y / 2);
+	body.setSize(sf::Vector2f(sidePlayerLength, sidePlayerLength));
 	body.setPosition(v.x, v.y);
+}
+
+void Player::draw(sf::RenderWindow& wnd)
+{
+	for (auto& bullet : clip)
+	{
+		bullet.fire();
+		bullet.draw(wnd);
+	}
+
+	if (isAlive())
+		wnd.draw(body);
 }
 
 void Player::move()
@@ -18,7 +29,11 @@ void Player::move()
 
 void Player::shoot()
 {
-	//Bullet bullet;
-	//clip.push_back(bullet);
-	//clip.back().fire();
+	Bullet bullet(sf::Vector2f( body.getPosition() ));
+	clip.push_back(bullet);
+}
+
+void Player::hit()
+{
+	HP -= bulletDamage;
 }
