@@ -1,11 +1,14 @@
 #include "Player.hpp"
 #include "Constants.hpp"
 
-Player::Player(sf::Vector2f v,Player* enemy)
-	: enemy(enemy)
+Player::Player(sf::Vector2f v)
 {
 	body.setSize(sf::Vector2f(sidePlayerLength, sidePlayerLength));
 	body.setPosition(v.x, v.y);
+}
+void Player::setEnemy(Player* enemy)
+{
+	Player::enemy = enemy;
 }
 
 void Player::draw(sf::RenderWindow& wnd)

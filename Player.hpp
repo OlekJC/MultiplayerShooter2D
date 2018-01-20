@@ -9,16 +9,18 @@
 class Player
 {
 public:
-	Player(sf::Vector2f,Player*);
+	Player(sf::Vector2f);
 	~Player() {};
 	void draw(sf::RenderWindow& wnd);
-	void shoot();
-	void move();
+	virtual void shoot();
+	virtual void move();
 	sf::Vector2f getPosition() const { return body.getPosition(); }
 	sf::RectangleShape getBody() const { return body; }
 	bool isAlive() { return HP >= 0; }
 	void hit();
+	void setEnemy(Player*);
 	int getHP() { return HP; }
+
 private:
 	sf::RectangleShape body;
 	std::vector<Bullet> clip;

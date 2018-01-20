@@ -2,20 +2,37 @@
 #include <SFML/Network.hpp>
 #include <vector>
 #include <iostream>
+#include <Windows.h>
 
 #include "Player.hpp"
+#include "Enemy.hpp"
 #include "Bullet.hpp"
 
-using namespace sf;
+//using namespace sf;
+
+bool help;
 
 int main()
 {	
+	sf::IpAddress yourIp;
+	//std::cout << yourIp << std::endl;
+	/*
+	unsigned int port = 5001;
+	IpAddress playerIp;
+	playerIp.getPublicAddress(sf::Time(sf::seconds(5)));
+	std::cout << "Twoj numer IP to" << playerIp 
+		<< "\n" <<"Podaj numer IP przeciwnika :";
+	std::string enemyIp("");
+	std::getline(std::cin, enemyIp);
+	*/
+
 	sf::RenderWindow window(sf::VideoMode(800, 600),
 		"Shooting Range", sf::Style::Default);
 	window.setFramerateLimit(60);
-
-	Player enemy(Vector2f(window.getSize().x - 100, 50),nullptr);
-	Player player(Vector2f(50, window.getSize().y - 100),&enemy);
+	Enemy enemy(sf::Vector2f(window.getSize().x - 100, 50));
+	Player player(sf::Vector2f(50, window.getSize().y - 100));
+	player.setEnemy(&enemy);
+	enemy.setEnemy(&player);
 	
 	while (window.isOpen())
 	{
@@ -24,21 +41,26 @@ int main()
 		{
 			switch (event.type)
 			{
-			case Event::KeyReleased:
+			case sf::Event::KeyReleased:
 				if (event.key.code == sf::Keyboard::Space)
 				{
 					player.shoot();
 				}
 				break;
-			case Event::Closed:
+			case sf::Event::Closed:
 				window.close();
 				break;
 			}
 		}	
 
 		player.move();
+		if (enemy.getBody().getPosition().y < 540 && help)
+			enemy.move();
+		else
+			enemy.move();
 		//p2.move();
-		std::cout << enemy.getHP() << std::endl;
+		//system("cls");
+		//std::cout << enemy.getHP() << std::endl;
 		window.clear();
 
 		player.draw(window);
