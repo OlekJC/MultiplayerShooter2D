@@ -5,6 +5,7 @@ Player::Player(sf::Vector2f v)
 {
 	body.setSize(sf::Vector2f(sidePlayerLength, sidePlayerLength));
 	body.setPosition(v.x, v.y);
+	y = body.getPosition().y;
 }
 void Player::setEnemy(Player* enemy)
 {
@@ -13,6 +14,7 @@ void Player::setEnemy(Player* enemy)
 
 void Player::draw(sf::RenderWindow& wnd)
 {
+	y = body.getPosition().y;
 	bounds = body.getGlobalBounds();
 	for (auto& bullet : clip)
 	{

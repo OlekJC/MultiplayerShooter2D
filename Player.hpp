@@ -20,11 +20,14 @@ public:
 	void hit();
 	void setEnemy(Player*);
 	int getHP() { return HP; }
-
-private:
+	sf::Uint16 getY() { return y; };
 	sf::RectangleShape body;
+protected:
+	
+private:
 	std::vector<Bullet> clip;
 	sf::FloatRect bounds;
 	Player* enemy = nullptr;
 	int HP = 100;
+	sf::Uint16 y;
 };
